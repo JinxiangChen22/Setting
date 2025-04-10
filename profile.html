@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      var head = document.getElementsByTagName('head')[0];
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://res.zvo.cn/translate/translate.js';
+      head.appendChild(script);
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- 左侧导航栏 -->
+      <div class="sidebar">
+        <div class="logo">
+          <img src="img/logo.png" alt="Logo" class="logo-image" />
+          <span>Daily Reading</span>
+        </div>
+        <ul class="nav-links">
+          <li data-page="home" class="active">
+            <i class="fas fa-home"></i>
+            <span data-translate="home">Home</span>
+          </li>
+          <li data-page="user-profile">
+            <i class="fas fa-user"></i>
+            <span data-translate="editProfile">User Profile</span>
+          </li>
+          <li data-page="my-book">
+            <i class="fas fa-book"></i>
+            <span data-translate="myBook">My Book</span>
+          </li>
+          <li data-page="goal-setting">
+            <i class="fas fa-bullseye"></i>
+            <span data-translate="goalSetting">Goal Setting</span>
+          </li>
+          <li data-page="reading-history">
+            <i class="fas fa-history"></i>
+            <span data-translate="readingHistory">Reading History</span>
+          </li>
+          <li data-page="settings">
+            <i class="fas fa-cog"></i>
+            <span data-translate="settings">Settings</span>
+          </li>
+          <li data-page="log-out" id="logoutItem">
+            <i class="fas fa-sign-out-alt"></i>
+            <span data-translate="logout">Log out</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 右侧内容区 -->
+      <div class="content">
+        <!-- 首页内容 -->
+        <div class="home-page" id="homePage" style="display: none">
+          <div id="homeContent">
+        <div class="header">
+          <h2 id="pageTitle" data-translate="homePage">HOME</h2>
+          <div class="header-icons">
+            <div class="notification">
+              <i class="fas fa-bell"></i>
+              <span id="greetingUser" data-translate="greeting">Hi, User</span>
+            </div>
+            <div class="user-avatar">
+              <img src="https://placehold.co/40" alt="User Avatar" id="headerAvatar" />
+            </div>
+          </div>
+        </div>
+          
+          <div class="search-container">
+            <div class="search-box">
+              <input type="text" placeholder="search something you interesting in" data-translate-placeholder="searchPlaceholder" />
+              <button class="search-icon">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="section-title" data-translate="recommendedBooks">Recommended Books</div>
+          <div class="book-grid">
+            <div class="book-card" onclick="showBookDetails()">
+              <img src="https://placehold.co/230x230" alt="Book Cover" />
+            </div>
+            <div class="book-card" onclick="showBookDetails()">
+              <img src="https://placehold.co/173x230" alt="Book Cover" />
+            </div>
+            <div class="book-card" onclick="showBookDetails()">
+              <img src="https://placehold.co/173x230" alt="Book Cover" />
+            </div>
+            <div class="book-card" onclick="showBookDetails()">
+              <img src="https://placehold.co/173x230" alt="Book Cover" />
+            </div>
+          </div>
+
+          </div>
+          <!-- 书籍详情页 -->
+          <div class="book-details-page" id="bookDetailsPage" style="display: none">
+            <div class="book-details-content">
+              <div class="book-details-header">
+                <h2>Book Details</h2>
+                <button class="back-btn" onclick="hideBookDetails()">
+                  <i class="fas fa-arrow-left"></i> Back
+                </button>
+              </div>
+              <div class="book-details-main">
+                <div class="book-cover-container">
+                  <img src="https://placehold.co/323x422" alt="Book Cover" />
+                </div>
+                <div class="book-info-container">
+                  <div class="book-info-item">
+                    <h3>Title:</h3>
+                    <p>Book Title Here</p>
+                  </div>
+                  <div class="book-info-item">
+                    <h3>Author:</h3>
+                    <p>Author Name Here</p>
+                  </div>
+                  <div class="book-info-item">
+                    <h3>Publication Date:</h3>
+                    <p>YYYY-MM-DD</p>
+                  </div>
+                  <div class="book-info-item">
+                    <h3>Rating:</h3>
+                    <p>4.5/5</p>
+                  </div>
+                </div>
+                <div class="book-actions">
+                  <button class="action-btn download-btn">
+                    <i class="fas fa-download"></i> Download
+                  </button>
+                  <button class="action-btn read-btn">
+                    <i class="fas fa-book-open"></i> Read Online
+                  </button>
+                  <button class="action-btn favorite-btn">
+                    <i class="fas fa-heart"></i> Add to Favorites
+                  </button>
+                </div>
+              </div>
+              <div class="book-description">
+                <h3>Introduction:</h3>
+                <p>This is a detailed description of the book content...</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="section-title" data-translate="lastRead">The book read last time</div>
+          <div class="book-grid">
+            <div class="book-card">
+              <img src="https://placehold.co/172x230" alt="Book Cover" />
+            </div>
+            <div class="book-card">
+              <img src="https://placehold.co/173x230" alt="Book Cover" />
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 用户资料页面 -->
+        <div class="profile-page" id="profilePage">
+        <div class="header">
+          <h2 id="pageTitle" data-translate="userProfilePage">User Profile</h2>
+          <div class="header-icons">
+            <div class="notification">
+              <i class="fas fa-bell"></i>
+              <span id="greetingUser" data-translate="greeting">Hi, User</span>
+            </div>
+            <div class="user-avatar">
+              <img src="https://placehold.co/40" alt="User Avatar" id="headerAvatar" />
+            </div>
+          </div>
+        </div>
+          <div class="profile-content">
+            <div class="avatar-upload">
+              <div class="avatar-placeholder" id="avatarPlaceholder">
+                <div class="placeholder-content">
+                  <i class="fas fa-camera"></i>
+                </div>
+              </div>
+              <img
+                src=""
+                alt="Profile Avatar"
+                id="profileAvatar"
+                class="rounded-avatar"
+                style="display: none"
+              />
+              <input
+                type="file"
+                id="avatarUpload"
+                accept="image/*"
+                style="display: none"
+              />
+            </div>
+
+            <div class="profile-info">
+              <h3 data-translate="userProfile">User Profile</h3>
+              <div class="info-item">
+                <p><span data-translate="emailLabel">Email</span>: user@example.com</p>
+              </div>
+              <div class="info-item">
+                <p id="usernameDisplay"><span data-translate="usernameLabel">User Name</span>: username</p>
+                <button class="edit-btn" onclick="showChangeUsernamePage()">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+              <div class="info-item">
+                <p data-translate="passwordLabel">Password</p>
+                <button class="edit-btn" onclick="showChangePasswordPage()">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+       <!-- setting更新 -->
+       <div class="settings-page" id="settingsPage" style="display: none">
+        <div class="header">
+          <h2 id="pageTitle" data-translate="settingsPage">Settings</h2>
+          <div class="header-icons">
+            <div class="notification">
+              <i class="fas fa-bell"></i>
+              <span id="greetingUser">Hi, User</span>
+              </div>
+            <div class="user-avatar">
+              <img src="https://placehold.co/40" alt="User Avatar" id="headerAvatar" />
+              </div>
+          </div>
+        </div>
+
+        <div class="settings-content">
+          <h3>General Settings</h3>
+          <div class="settings-item">
+            <p data-translate="language">Language</p>
+            <button class="edit-btn" onclick="showLanguageModal()">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="settings-item">
+            <p data-translate="privacy">Privacy</p>
+            <button class="edit-btn" onclick="showPrivacyModal()">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="privacy-modal-overlay" id="privacyModalOverlay" style="display: none;">
+          <div class="privacy-modal-content">
+            <h4>Privacy Notice</h4>
+            <p>
+              Your privacy is important to us. This notice explains how we collect,
+              use, and protect your personal information when you use the Daily Reading app.
+              We collect information you provide, such as your username, email, reading goals,
+              and history to personalize your experience and improve our services. We do not
+              share your personal data with third parties without your explicit consent, except
+              as required by law. We implement security measures to protect your data.
+              By using this app, you consent to our data practices as described here.
+            </p>
+            <button class="modal-close-btn" onclick="hidePrivacyModal()">
+              Acknowledge and Agree
+            </button>
+          </div>
+        </div>
+
+        <div class="privacy-modal-overlay" id="languageModalOverlay" style="display: none;">
+          <div class="privacy-modal-content">
+            <h4>Language Settings</h4>
+            <div class="language-options" style="margin-bottom: 25px;">
+              <div class="language-option" style="margin-bottom: 15px;">
+                <input type="radio" id="english" name="language" value="english" checked>
+                <label for="english" style="margin-left: 10px; font-size: 16px;">English</label>
+              </div>
+              <div class="language-option" style="margin-bottom: 15px;">
+                <input type="radio" id="chinese" name="language" value="chinese">
+                <label for="chinese" style="margin-left: 10px; font-size: 16px;">中文</label>
+              </div>
+              <div class="language-option" style="margin-bottom: 15px;">
+                <input type="radio" id="french" name="language" value="french">
+                <label for="french" style="margin-left: 10px; font-size: 16px;">Français</label>
+              </div>
+              <div class="language-option" style="margin-bottom: 15px;">
+                <input type="radio" id="russian" name="language" value="russian">
+                <label for="russian" style="margin-left: 10px; font-size: 16px;">Русский</label>
+              </div>
+              <div class="language-option" style="margin-bottom: 15px;">
+                <input type="radio" id="spanish" name="language" value="spanish">
+                <label for="spanish" style="margin-left: 10px; font-size: 16px;">Español</label>
+              </div>
+              <div class="language-option" style="margin-bottom: 15px;">
+                <input type="radio" id="arabic" name="language" value="arabic">
+                <label for="arabic" style="margin-left: 10px; font-size: 16px;">العربية</label>
+              </div>
+            </div>
+            <button class="modal-close-btn" onclick="hideLanguageModal()" data-translate="save">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+<!-- Goal Setting Page (new content) -->
+        <!-- 目标设置页面 -->
+      <div class="goal-setting-page" id="goalSettingPage" style="display: none">
+        <div class="header">
+          <h2 id="pageTitle" data-translate="goalSettingPage">Goal Setting</h2>
+          <div class="header-icons">
+            <div class="notification">
+              <i class="fas fa-bell"></i>
+              <span id="greetingUser">Hi, User</span>
+            </div>
+            <div class="user-avatar">
+              <img src="https://placehold.co/40" alt="User Avatar" id="headerAvatar" />
+            </div>
+          </div>
+        </div>
+        <div class="goal-management">
+       <div class="goal-board" id="goalBoard">
+       <h3>My Goals</h3>
+       <div class="goal-grid" id="goalGrid">
+         <!-- 目标卡片将通过JavaScript动态添加 -->
+       </div>
+      
+
+
+     <h3>Create New Goal</h3>
+
+     <div class="goal-form">
+      <div class="form-group">
+              <label for="goalName" data-translate="goalName">Goal Name</label>
+              <input type="text" id="goalName" placeholder="Enter goal name" data-translate-placeholder="enterGoalName">
+      </div>
+
+      <div class="form-group">
+        <label>Measurement</label>
+        <div class="measurement-select">
+          <button class="measurement-btn active" data-unit="pages" data-translate="pages">Pages</button>
+          <button class="measurement-btn" data-unit="minutes" data-translate="minutes">Minutes</button>
+        </div>
+      </div>
+      <div class="form-group">
+              <label for="targetValue" data-translate="targetValue">Target Value</label>
+              <input type="number" id="targetValue" placeholder="Enter target value" data-translate-placeholder="enterTargetValue">
+      </div>
+      <div class="date-group">
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <input type="date" id="startDate">
+        </div>
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <input type="date" id="endDate">
+        </div>
+      </div>
+      <div class="cover-upload">
+        <div class="upload-preview" id="goalCoverPreview"></div>
+        <input type="file" id="goalCoverUpload" accept="image/*" hidden>
+        <button class="upload-btn" onclick="document.getElementById('goalCoverUpload').click()">
+          <i class="fas fa-upload"></i> Upload Cover
+        </button>
+      </div>
+      <div class="form-buttons">
+        <button class="cancel-btn" onclick="clearGoalForm()">Clear</button>
+        <button class="save-btn" onclick="createNewGoal()">Create Goal</button>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- 进度更新弹窗 -->
+<div class="progress-modal" id="progressModal" style="display: none">
+  <div class="modal-content">
+    <h4>Update Progress</h4>
+    <input type="number" id="currentProgress" placeholder="Enter current value">
+    <div class="modal-buttons">
+      <button class="cancel-btn" onclick="closeProgressModal()">Cancel</button>
+      <button class="save-btn" onclick="updateProgress()">Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- 更新到这里 -->
+ 
+        <!-- 阅读历史页面 -->
+        <div
+          class="reading-history-page"
+          id="readingHistoryPage"
+          style="display: none"
+        >
+        <div class="header">
+          <h2 id="pageTitle" data-translate="readingHistoryPage">Reading History</h2>
+          <div class="header-icons">
+            <div class="notification">
+              <i class="fas fa-bell"></i>
+              <span id="greetingUser">Hi, User</span>
+            </div>
+            <div class="user-avatar">
+              <img src="https://placehold.co/40" alt="User Avatar" id="headerAvatar" />
+            </div>
+          </div>
+        </div>
+          <div class="search-bar">
+            <div class="search-container">
+              <input
+                type="text"
+                placeholder="Search your books"
+                id="searchInput"
+              />
+              <button id="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <select id="filter-select">
+              <option value="all">All</option>
+              <option value="week">7 Days</option>
+              <option value="month">A month</option>
+              <option value="year">A Year</option>
+            </select>
+            <input type="date" id="start-date" placeholder="Start date" />
+            <span class="date-separator">
+              <i class="fas fa-arrow-right"></i>
+            </span>
+            <input type="date" id="end-date" placeholder="End date" />
+          </div>
+          <div class="history" id="history">
+            <div class="no-history-message" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- 修改用户名页面 -->
+<div class="change-username-page" id="changeUsernamePage" style="display: none">
+  <h3>Change User Name</h3>
+  <div class="change-username-form-group">
+    <label for="newUsername" data-translate="newUsername">New User Name</label>
+    <input
+      type="text"
+      id="newUsername"
+      name="newUsername"
+      placeholder="Enter new username" data-translate-placeholder="enterNewUsername"
+    />
+  </div>
+  <div class="change-username-form-buttons">
+    <button type="button" class="cancel-btn" onclick="showProfilePage()">
+      <span data-translate="return">Return</span>
+    </button>
+    <button type="button" class="save-btn" onclick="updateUsername()">
+      <span data-translate="update">Update</span>
+    </button>
+  </div>
+</div>
+
+<!-- 修改密码页面 -->
+<div class="change-password-page" id="changePasswordPage" style="display: none">
+  <h3>Change Password</h3>
+  <div class="change-password-form-group">
+    <button
+      type="button"
+      class="save-btn"
+      onclick="sendVerificationCode()"
+    >
+      <span data-translate="sendVerificationCode">Send Verification Code</span>
+    </button>
+  </div>
+  <div class="change-password-form-group">
+    <label for="verificationCode" data-translate="verificationCode">Verification Code</label>
+    <input
+      type="text"
+      id="verificationCode"
+      name="verificationCode"
+      placeholder="Enter verification code" data-translate-placeholder="enterVerificationCode"
+    />
+  </div>
+  <div class="change-password-form-group">
+    <label for="newPassword" data-translate="newPassword">New Password</label>
+    <input
+      type="password"
+      id="newPassword"
+      name="newPassword"
+      placeholder="Enter new password" data-translate-placeholder="enterNewPassword"
+    />
+  </div>
+  <div class="change-password-form-group">
+    <label for="confirmPassword" data-translate="confirmPassword">Confirm Password</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      name="confirmPassword"
+      placeholder="Confirm new password" data-translate-placeholder="confirmNewPassword"
+    />
+  </div>
+  <div class="change-password-form-buttons">
+    <button type="button" class="cancel-btn" onclick="showProfilePage()">
+      <span data-translate="return">Return</span>
+    </button>
+    <button type="button" class="save-btn" onclick="updatePassword()">
+      <span data-translate="update">Update</span>
+    </button>
+  </div>
+</div>
+
+          <!-- My Book 页面 -->
+          <div class="my-book-page" id="myBookPage" style="display: none">
+          <div class="header">
+            <h2 id="pageTitle">My Book</h2>
+            <div class="header-icons">
+              <div class="notification">
+                <i class="fas fa-bell"></i>
+                <span id="greetingUser">Hi, User</span>
+              </div>
+              <div class="user-avatar">
+                <img src="https://placehold.co/40" alt="User Avatar" id="headerAvatar" />
+              </div>
+            </div>
+          </div>
+            <div class="favourite-section">
+              <h3 data-translate="myFavorites">My favourite ❤️</h3>
+              <div class="book-grid" id="favouriteBooks">
+                <!-- 书籍卡片将通过JavaScript动态添加 -->
+              </div>
+              <div class="add-book-btn" onclick="showReadingLogForm()">
+                <i class="fas fa-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 阅读记录详情页面 -->
+      <div class="reading-details" id="readingDetails" style="display: none">
+        <div class="reading-details-content">
+          <h3 id="detailTitle"></h3>
+          <p id="detailAuthor"></p>
+          <p id="detailDate"></p>
+          <p id="detailReview"></p>
+          <button onclick="closeReadingDetails()">Close</button>
+        </div>
+      </div>
+  
+      <!-- 创建阅读日志表单 -->
+      <div class="reading-log-form" id="readingLogForm" style="display: none">
+        <div class="form-container">
+          <h3 data-translate="createReadingLog">Create a reading log</h3>
+          <div class="book-cover-upload">
+            <img
+              src=""
+              alt="Book Cover"
+              id="bookCoverPreview"
+              style="display: none"
+            />
+            <div class="upload-placeholder" id="uploadPlaceholder">
+              <i class="fas fa-plus"></i>
+            </div>
+            <input
+              type="file"
+              id="bookCoverUpload"
+              accept="image/*"
+              style="display: none"
+            />
+          </div>
+          <div class="form-group">
+            <label for="bookTitle" data-translate="bookTitle">Title:</label>
+            <input type="text" id="bookTitle" placeholder="Enter book title" data-translate-placeholder="enterBookTitle" />
+          </div>
+          <div class="form-group">
+            <label for="bookAuthor" data-translate="bookAuthor">Author:</label>
+            <input type="text" id="bookAuthor" placeholder="Enter author name" data-translate-placeholder="enterAuthorName" />
+          </div>
+          <div class="form-group">
+            <label for="readingDate" data-translate="readingDate">Reading Date:</label>
+            <input type="date" id="readingDate" />
+          </div>
+          <div class="form-group">
+            <label for="bookReview" data-translate="review">Review:</label>
+            <textarea
+              id="bookReview"
+              rows="5"
+              placeholder="Write your review here..." data-translate-placeholder="writeReviewPlaceholder"
+            ></textarea>
+          </div>
+          <div class="form-buttons">
+            <button
+              type="button"
+              class="cancel-btn"
+              onclick="hideReadingLogForm()"
+            >
+              <span data-translate="cancel">Cancel</span>
+            </button>
+            <button type="button" class="save-btn" onclick="createReadingLog()">
+              <span data-translate="create">Create</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+   
+
+
+<script src="script.js"></script>
+  </body>
+</html>
